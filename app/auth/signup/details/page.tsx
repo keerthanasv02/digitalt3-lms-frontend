@@ -19,9 +19,9 @@ function SignupDetailsContent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-      <div className="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow">
-        <h2 className="text-2xl font-semibold mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <div className="w-full max-w-md bg-white border border-slate-200 p-8 rounded-2xl shadow-sm">
+        <h2 className="text-2xl font-semibold mb-6 text-slate-900 text-center">
           Sign up / Create your account
         </h2>
 
@@ -29,7 +29,7 @@ function SignupDetailsContent() {
           <input
             value={emailFromUrl}
             disabled
-            className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 text-gray-400"
+            className="w-full px-4 py-3 rounded-xl bg-slate-100 border border-slate-300 text-slate-500"
           />
 
           <input
@@ -37,7 +37,7 @@ function SignupDetailsContent() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#008080]"
           />
 
           <div className="relative">
@@ -47,12 +47,12 @@ function SignupDetailsContent() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded bg-gray-700 border border-gray-600 pr-12 focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 pr-12 focus:outline-none focus:ring-2 focus:ring-[#008080]"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2 text-gray-400"
+              className="absolute right-3 top-3 text-slate-500"
             >
               👁
             </button>
@@ -60,15 +60,18 @@ function SignupDetailsContent() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-medium"
+            className="w-full bg-[#008080] hover:bg-[#006666] text-white py-3 rounded-xl font-medium transition"
           >
             Create account
           </button>
         </form>
 
-        <p className="mt-4 text-sm text-gray-400">
+        <p className="mt-4 text-sm text-slate-600 text-center">
           Already have an account?{" "}
-          <a href="/auth/login" className="text-blue-400 hover:underline">
+          <a
+            href="/auth/login"
+            className="text-[#008080] font-medium hover:underline"
+          >
             Login
           </a>
         </p>

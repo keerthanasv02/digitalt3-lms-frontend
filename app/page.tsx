@@ -5,71 +5,110 @@ import { useState } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
-
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleCreateAccount = () => {
-    if (!email || !password) {
-      setError("Email and password are required");
+  const handleSignup = () => {
+    if (!firstName || !email || !password || !confirmPassword) {
+      setError("All fields are required");
       return;
     }
 
-    setError("");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    // Get existing users from localStorage
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    // Check if email already exists
+    const userExists = users.some((user) => user.email === email);
+    if (userExists) {
+      setError("This email is already registered");
+      return;
+    }
+
+    // Save new user
+    const newUser = { firstName, email, password };
+    localStorage.setItem("users", JSON.stringify([...users, newUser]));
+
+    // Redirect to login
     router.push("/auth/login");
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-black">
-      <div className="w-full max-w-md bg-gradient-to-br from-[#0b1220] to-[#111827] rounded-2xl shadow-2xl p-8">
-        {/* Title */}
-        <h1 className="text-2xl font-bold text-center text-white mb-6">
-          Create Account
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 relative">
+      <div className="absolute top-0 left-0 w-full p-4">
+        <img src="/logo.png" alt="DigitalT3 Logo" className="h-10" />
+      </div>
+
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+        <h1 className="text-3xl font-bold text-slate-900 text-center mb-2">
+          DigitalT3 LMS
         </h1>
+        <p className="text-slate-600 text-center mb-6">
+          Create your account to start learning
+        </p>
 
-        {/* Email */}
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="w-full mb-4 px-4 py-3 rounded-md bg-[#1f2937] text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-
-        {/* Password */}
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="w-full mb-2 px-4 py-3 rounded-md bg-[#1f2937] text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-
-        {/* Error */}
         {error && (
-          <p className="text-sm text-red-400 mb-4">{error}</p>
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
         )}
 
-        {/* Button */}
-        <button
-          onClick={handleCreateAccount}
-          className="w-full mt-2 bg-white text-black py-3 rounded-md font-semibold hover:bg-gray-200 transition"
-        >
-          Create Account
-        </button>
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#008080]"
+          />
 
-        {/* Login Link */}
-        <p className="mt-5 text-center text-sm text-gray-300">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#008080]"
+          />
+
+          <input
+            type="password"
+            placeholder="Password (Minimum 6 characters)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#008080]"
+          />
+
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#008080]"
+          />
+
+          <button
+            onClick={handleSignup}
+            className="w-full bg-[#008080] text-white py-3 rounded-xl text-lg font-medium hover:bg-[#006666] transition"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <p className="text-slate-600 text-sm text-center mt-6">
           Already have an account?{" "}
           <span
             onClick={() => router.push("/auth/login")}
-            className="font-semibold text-white cursor-pointer underline"
+            className="text-[#008080] font-medium cursor-pointer hover:underline"
           >
             Login
           </span>
         </p>
       </div>
-    </main>
+    </div>
   );
 }

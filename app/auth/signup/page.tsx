@@ -40,7 +40,7 @@ export default function SignupPage() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#008080]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -48,14 +48,14 @@ export default function SignupPage() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#008080]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
             onClick={handleSignup}
-            className="w-full bg-indigo-600 text-white py-3 rounded-xl text-lg font-medium hover:bg-indigo-700 transition"
+            className="w-full bg-[#008080] text-white py-3 rounded-xl text-lg font-medium hover:bg-[#006666] transition"
           >
             Create Account
           </button>
@@ -65,7 +65,7 @@ export default function SignupPage() {
           Already have an account?{" "}
           <span
             onClick={() => router.push("/auth/login")}
-            className="text-indigo-600 font-medium cursor-pointer hover:underline"
+            className="text-[#008080] font-medium cursor-pointer hover:underline"
           >
             Login
           </span>
